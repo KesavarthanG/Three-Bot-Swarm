@@ -1,0 +1,1176 @@
+[
+    {
+        "id": "b13959b828a031d7",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "ca1bdc5b626f39f3",
+        "type": "mqtt out",
+        "z": "b13959b828a031d7",
+        "name": "",
+        "topic": "esp32/led_control",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "f514de703c1fa312",
+        "x": 750,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "db0b6b7ddcafc248",
+        "type": "ui_button",
+        "z": "b13959b828a031d7",
+        "name": "",
+        "group": "ff83dee1decc047d",
+        "order": 2,
+        "width": 3,
+        "height": 1,
+        "passthru": false,
+        "label": "Pizza",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "btn1",
+        "icon": "",
+        "payload": "pizza",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 950,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c40d5bbfcaf1b29e",
+        "type": "ui_template",
+        "z": "b13959b828a031d7",
+        "group": "ff83dee1decc047d",
+        "name": "button1",
+        "order": 18,
+        "width": 0,
+        "height": 0,
+        "format": "<style>\n    .btn1>.md-button{\n    \n        background-color:rgb(0,142,0) !important;\n        border-top-right-radius: 10px;\n        border-bottom-right-radius: 10px;\n        width:150px;\n    }\n</style>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 80,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2bf6d08f53c2548a",
+        "type": "ui_numeric",
+        "z": "b13959b828a031d7",
+        "name": "",
+        "label": "Quantity",
+        "tooltip": "",
+        "group": "ff83dee1decc047d",
+        "order": 3,
+        "width": 3,
+        "height": 1,
+        "wrap": false,
+        "passthru": true,
+        "topic": "pizza",
+        "topicType": "str",
+        "format": "{{value}}",
+        "min": 0,
+        "max": 10,
+        "step": 1,
+        "className": "",
+        "x": 620,
+        "y": 200,
+        "wires": [
+            [
+                "27d456c148713061"
+            ]
+        ]
+    },
+    {
+        "id": "914915efe68eabd5",
+        "type": "ui_button",
+        "z": "b13959b828a031d7",
+        "name": "",
+        "group": "ff83dee1decc047d",
+        "order": 6,
+        "width": 3,
+        "height": 1,
+        "passthru": false,
+        "label": "Burger",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "btn1",
+        "icon": "",
+        "payload": "pizza",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 950,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "463589d121a04279",
+        "type": "ui_numeric",
+        "z": "b13959b828a031d7",
+        "name": "",
+        "label": "Quantity",
+        "tooltip": "",
+        "group": "ff83dee1decc047d",
+        "order": 7,
+        "width": 3,
+        "height": 1,
+        "wrap": false,
+        "passthru": true,
+        "topic": "burger",
+        "topicType": "str",
+        "format": "{{value}}",
+        "min": 0,
+        "max": 10,
+        "step": 1,
+        "className": "",
+        "x": 620,
+        "y": 240,
+        "wires": [
+            [
+                "c0d43ecb153cf7ca"
+            ]
+        ]
+    },
+    {
+        "id": "ff6d9c1ebaaf80a1",
+        "type": "ui_button",
+        "z": "b13959b828a031d7",
+        "name": "",
+        "group": "ff83dee1decc047d",
+        "order": 15,
+        "width": 4,
+        "height": 1,
+        "passthru": false,
+        "label": "Submit",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "submitted",
+        "payloadType": "str",
+        "topic": "status",
+        "topicType": "str",
+        "x": 60,
+        "y": 60,
+        "wires": [
+            [
+                "b25f6556f475b357"
+            ]
+        ]
+    },
+    {
+        "id": "051fb273e9c46280",
+        "type": "function",
+        "z": "b13959b828a031d7",
+        "name": "function_clear_qty",
+        "func": "\nif(msg.payload!==1){\n    msg.payload = {\n    clearInputs: true,\n    clearDropdown: true\n};\nreturn msg;\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 200,
+        "wires": [
+            [
+                "2bf6d08f53c2548a",
+                "463589d121a04279",
+                "fd049f1ce4d89799",
+                "bcce9620d1dd8022",
+                "9b39c2a89635b832",
+                "573b2267d2be31ba"
+            ]
+        ]
+    },
+    {
+        "id": "5660a4bfc1f481b4",
+        "type": "function",
+        "z": "b13959b828a031d7",
+        "name": "function_clear_id",
+        "func": "if(msg.payload!==1){\nmsg.payload = \"\"; // Set payload to empty string to clear text input\nreturn msg;\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 160,
+        "wires": [
+            [
+                "4558ab0a4c13fdd8"
+            ]
+        ]
+    },
+    {
+        "id": "4558ab0a4c13fdd8",
+        "type": "ui_text_input",
+        "z": "b13959b828a031d7",
+        "name": "",
+        "label": "Enter Employee ID",
+        "tooltip": "",
+        "group": "ff83dee1decc047d",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "mode": "number",
+        "delay": "300",
+        "topic": "employee_id",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "str",
+        "x": 590,
+        "y": 160,
+        "wires": [
+            [
+                "d97c78f8e49c57dc"
+            ]
+        ]
+    },
+    {
+        "id": "d97c78f8e49c57dc",
+        "type": "function",
+        "z": "b13959b828a031d7",
+        "name": "Set_Employee_ID",
+        "func": "if (msg.payload !== undefined) {\n   global.set('employee_id', msg.payload);\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 890,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "27d456c148713061",
+        "type": "function",
+        "z": "b13959b828a031d7",
+        "name": "Set_Pizza_Qty",
+        "func": "if (msg.payload !== undefined) {\n   global.set('pizza', msg.payload);\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 800,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c0d43ecb153cf7ca",
+        "type": "function",
+        "z": "b13959b828a031d7",
+        "name": "Set_Burger_Qty",
+        "func": "if (msg.payload !== undefined) {\n   global.set('burger', msg.payload);\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 800,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b25f6556f475b357",
+        "type": "function",
+        "z": "b13959b828a031d7",
+        "name": "Set_Order",
+        "func": "let employee_id = global.get('employee_id') || \"\";\nlet pizza = global.get('pizza')||0;\nlet burger = global.get('burger')||0;\nlet drinks = global.get('drinks')||0;\nlet drinks_rate = global.get('drinks_rate')||0;\nlet pizza_rate = global.get('pizza_rate')||0;\nlet burger_rate = global.get('burger_rate')||0;\nlet available_pizza_small=global.get('available_pizza_small');\nlet available_pizza_large = global.get('available_pizza_large');\nlet available_burger_small= global.get('available_burger_small');\nlet available_burger_large = global.get('available_burger_large');\nlet available_coke = global.get('available_coke');\nlet available_pepsi = global.get('available_pepsi');\nlet available_sprite =  global.get('available_sprite');\nlet isOrder = true;\n\nlet payload = {};\nif(pizza === 0 && burger === 0 && drinks===0){\n   isOrder = false;\n   return {payload:1};\n}\nelse if((pizza===0 && pizza_rate!==0)||(pizza!==0 && pizza_rate===0)){\n   isOrder = false;\n     return {payload:1};\n}\nelse if ((burger === 0 && burger_rate !== 0) || (burger !== 0 && burger_rate === 0)) {\n   isOrder = false;\n   return {payload:1};\n}\nelse if ((drinks === 0 && drinks_rate !== 0) || (drinks !== 0 && drinks_rate === 0)) {\n   isOrder = false;\n    return {payload:1};\n}\nelse if(employee_id<100 || employee_id>129){\n   isOrder = false;\n    return {payload:1};\n}\nif(isOrder){\n   if (pizza) {\n      if (pizza_rate === 220) {\n         if (available_pizza_large < pizza) {\n            isOrder = false;\n              return {payload:1};\n         }\n      }\n      if (pizza_rate === 90) {\n         if (available_pizza_small < pizza) {\n            isOrder = false;\n              return {payload:1};\n         }\n      }\n   }\n   if (burger) {\n      if (burger_rate === 60) {\n         if (available_burger_small < burger) {\n            isOrder = false;\n              return {payload:1};\n         }\n      }\n      if (burger_rate === 120) {\n         if (available_burger_large < burger) {\n            isOrder = false;\n              return {payload:1};\n         }\n      }\n   }\n   if (drinks){\n      if(drinks_rate === 40){\n         if(available_coke < drinks){\n            isOrder = false;\n              return {payload:1};\n         }\n      }\n      if (drinks_rate === 50) {\n         if (available_pepsi < drinks) {\n            isOrder = false;\n              return {payload:1};\n         }\n      }\n      if (drinks_rate === 80) {\n         if (available_sprite < drinks) {\n            isOrder = false;\n              return {payload:1};\n         }\n      }\n   }\n}\nif(isOrder){\n   if (employee_id >= 100 && employee_id <= 129) {\n      payload.employee_id = employee_id;\n   }\n   if (pizza > 0 && pizza_rate > 0) {\n      payload.pizza = pizza;\n      payload.pizza_rate = pizza_rate;\n      if (pizza_rate === 220) {\n         available_pizza_large = available_pizza_large - pizza;\n         global.set('available_pizza_large', available_pizza_large);\n      }\n      else if (pizza_rate === 90) {\n         available_pizza_small = available_pizza_small - pizza;\n         global.set('available_pizza_small', available_pizza_small);\n      }\n   }\n\n   if (burger > 0 && burger_rate > 0) {\n      payload.burger = burger;\n      payload.burger_rate = burger_rate;\n      if (burger_rate === 120) {\n         available_burger_large = available_burger_large - burger;\n         global.set('available_burger_large', available_burger_large);\n      }\n      else if (burger_rate === 60) {\n         available_burger_small = available_burger_small - burger;\n         global.set('available_burger_small', available_burger_small);\n      }\n   }\n\n   if (drinks > 0 && drinks_rate > 0) {\n      payload.drinks = drinks;\n      payload.drinks_rate = drinks_rate;\n      if (drinks_rate === 40) {\n         available_coke = available_coke - drinks;\n         global.set('available_coke', available_coke);\n      }\n      else if (drinks_rate === 50) {\n         available_pepsi = available_pepsi - drinks;\n         global.set('available_pepsi', available_pepsi);\n      }\n      else if (drinks_rate === 80) {\n         available_sprite = available_sprite - drinks;\n         global.set('available_sprite', available_sprite);\n      }\n   }\n   msg.payload = payload;\n   return msg;\n}\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 250,
+        "y": 80,
+        "wires": [
+            [
+                "e0a32949b83d2b3d",
+                "c97e9a3b3c577b56",
+                "7f2da05a1c065148",
+                "7ee455dd083f27bb",
+                "051fb273e9c46280",
+                "241dfdc61c0dd9d4",
+                "5660a4bfc1f481b4",
+                "01c1c422fe729544",
+                "dc6eca0b57ac9faf"
+            ]
+        ]
+    },
+    {
+        "id": "e0a32949b83d2b3d",
+        "type": "debug",
+        "z": "b13959b828a031d7",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 920,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "41707b2536835afa",
+        "type": "ui_button",
+        "z": "b13959b828a031d7",
+        "name": "",
+        "group": "ff83dee1decc047d",
+        "order": 16,
+        "width": 4,
+        "height": 1,
+        "passthru": false,
+        "label": "Cancel",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "red",
+        "className": "",
+        "icon": "",
+        "payload": "cancelled",
+        "payloadType": "str",
+        "topic": "status",
+        "topicType": "str",
+        "x": 100,
+        "y": 220,
+        "wires": [
+            [
+                "051fb273e9c46280",
+                "5660a4bfc1f481b4"
+            ]
+        ]
+    },
+    {
+        "id": "80ce6bc7c68181ab",
+        "type": "debug",
+        "z": "b13959b828a031d7",
+        "name": "debug 5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 420,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "2ea63a88085a15ec",
+        "type": "ui_toast",
+        "z": "b13959b828a031d7",
+        "position": "top right",
+        "displayTime": "3",
+        "highlight": "red",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "Error",
+        "name": "",
+        "x": 610,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "7ee455dd083f27bb",
+        "type": "function",
+        "z": "b13959b828a031d7",
+        "name": "Error_display",
+        "func": "let employee_id = global.get('employee_id') ||0;\nlet pizza = global.get('pizza')||0;\nlet burger = global.get('burger')||0;\nlet drinks = global.get('drinks')||0;\nlet drinks_rate = global.get('drinks_rate')||0;\nlet pizza_rate = global.get('pizza_rate')||0;\nlet burger_rate = global.get('burger_rate')||0;\nlet available_pizza_small=global.get('available_pizza_small');\nlet available_pizza_large = global.get('available_pizza_large');\nlet available_burger_small= global.get('available_burger_small');\nlet available_burger_large = global.get('available_burger_large');\nlet available_coke = global.get('available_coke');\nlet available_pepsi = global.get('available_pepsi');\nlet available_sprite =  global.get('available_sprite');\nlet message = \"\";\nlet isOrder = global.get('isOrder');\nif(msg.payload===1){\n   if(pizza === 0 && burger === 0 && drinks===0 ){\n    message = \"Please Order Something!\";\n    return {payload: message};\n}\nelse if(employee_id <100 || employee_id>129){\n    message = \"Invalid Employee ID\";\n    return {payload: message};\n}\nelse if((pizza===0 && pizza_rate!==0)){\n    message = \"Please Choose Quantity of Pizza\";\n    return {payload: message};\n}\nelse if((pizza!==0 && pizza_rate===0)){\n   message = \"Please Choose the type of Pizza\";\n    return {payload: message};\n}\nelse if ((burger === 0 && burger_rate !== 0)) {\n   message = \"Please Choose Quantity of Burger\";\n    return {payload: message};\n}\nelse if( (burger !== 0 && burger_rate === 0)){\n   message = \"Please Choose the type of Burger\";\n    return {payload: message};\n}\nelse if ((drinks === 0 && drinks_rate !== 0) ) {\n   message = \"Please Choose Quantity of Drink\";\n   return {payload: message};\n}\nelse if((drinks !== 0 && drinks_rate === 0)){\n    message = \"Please Choose the type of Drink\";\n    return {payload: message};\n}\n if (pizza) {\n      if (pizza_rate === 220) {\n         if (available_pizza_large < pizza) {\n           message = \"Large Pizza Out of Stock\";\n            return {payload: message};\n         }\n      }\n      if (pizza_rate === 90) {\n         if (available_pizza_small < pizza) {\n           message = \"Small Pizza Out of Stock\";\n            return {payload: message};\n         }\n      }\n   }\n   if (burger) {\n      if (burger_rate === 60) {\n         if (available_burger_small < burger) {\n           message = \"Small Burger Out of Stock\";\n            return {payload: message};\n         }\n      }\n      if (burger_rate === 120) {\n         if (available_burger_large < burger) {\n            message = \"Large Burger Out of Stock\";\n            return {payload: message};\n         }\n      }\n   }\n   if (drinks){\n      if(drinks_rate === 40){\n         if(available_coke < drinks){\n            message = \"Coke Out of Stock\";\n            return {payload: message};\n         }\n      }\n      if (drinks_rate === 50) {\n         if (available_pepsi < drinks) {\n            message = \"Pepsi Out of Stock\";\n            return {payload: message};\n         }\n      }\n      if (drinks_rate === 80) {\n         if (available_sprite < drinks) {\n            message = \"Sprite Out of Stock\";\n            return {payload: message};\n         }\n      }\n   }\n\n}\n   \n\n\n   ",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 20,
+        "wires": [
+            [
+                "2ea63a88085a15ec"
+            ]
+        ]
+    },
+    {
+        "id": "c97e9a3b3c577b56",
+        "type": "function",
+        "z": "b13959b828a031d7",
+        "name": "Order_placed",
+        "func": "let mes = \"Order Placed\";\nif(msg.payload !==1){\n    return {payload:mes};\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 120,
+        "wires": [
+            [
+                "ff4253b0e5a42261"
+            ]
+        ]
+    },
+    {
+        "id": "ff4253b0e5a42261",
+        "type": "ui_toast",
+        "z": "b13959b828a031d7",
+        "position": "top right",
+        "displayTime": "3",
+        "highlight": "green",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "Status",
+        "name": "",
+        "x": 810,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "ad734df6c0160e60",
+        "type": "ui_template",
+        "z": "b13959b828a031d7",
+        "group": "ff83dee1decc047d",
+        "name": "Group_style",
+        "order": 19,
+        "width": 0,
+        "height": 0,
+        "format": "<style>\n    .dash{\n        border: 1px solid #ccc;\n        border-radius: 5px;\n        padding-bottom:3px;\n        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);\n    }\n</style>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 90,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "427d83ca34d1343c",
+        "type": "ui_template",
+        "z": "b13959b828a031d7",
+        "group": "6e2b0846a112d29e",
+        "name": "",
+        "order": 1,
+        "width": 5,
+        "height": 2,
+        "format": "<style>\n.tab {\noverflow: hidden;\nbackground-color: #333;\nmargin-bottom: 20px;\n}\n\n.tab button {\nbackground-color: inherit;\nfloat: left;\nborder: none;\noutline: none;\ncursor: pointer;\npadding: 14px 16px;\ntransition: 0.3s;\nfont-size: 17px;\ncolor: white;\n}\n\n.tab button:hover {\nbackground-color: #ddd;\ncolor: black;\n}\n\n.tab button.active {\nbackground-color: #555;\ncolor: white;\n}\n</style>\n<div class=\"tab\">\n    <button class=\"tablinks\" onclick=\"openTab(event, 'Pizza')\">Pizza</button>\n    <button class=\"tablinks\" onclick=\"openTab(event, 'Burgers')\">Burgers</button>\n    <button class=\"tablinks\" onclick=\"openTab(event, 'Drinks')\">Drinks</button>\n</div>\n<script>\n    function openTab(evt, tabName) {\n    var i, tabcontent, tablinks;\n    tabcontent = document.getElementsByClassName(\"tabcontent\");\n    for (i = 0; i < tabcontent.length; i++) { tabcontent[i].style.display=\"none\" ; }\n        tablinks=document.getElementsByClassName(\"tablinks\"); for (i=0; i < tablinks.length; i++) {\n        tablinks[i].className=tablinks[i].className.replace(\" active\", \"\" ); }\n        document.getElementById(tabName).style.display=\"block\" ; evt.currentTarget.className +=\" active\" ; }\n</script>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 80,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bcce9620d1dd8022",
+        "type": "ui_dropdown",
+        "z": "b13959b828a031d7",
+        "name": "",
+        "label": "",
+        "tooltip": "",
+        "place": "Select Size",
+        "group": "ff83dee1decc047d",
+        "order": 4,
+        "width": 3,
+        "height": 1,
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "Small Pizza",
+                "value": 90,
+                "type": "num"
+            },
+            {
+                "label": "Large Pizza",
+                "value": 220,
+                "type": "num"
+            }
+        ],
+        "payload": "",
+        "topic": "pizza_size",
+        "topicType": "str",
+        "className": "",
+        "x": 620,
+        "y": 320,
+        "wires": [
+            [
+                "0a9e06b580e3a9d2"
+            ]
+        ]
+    },
+    {
+        "id": "9b39c2a89635b832",
+        "type": "ui_dropdown",
+        "z": "b13959b828a031d7",
+        "name": "",
+        "label": "",
+        "tooltip": "",
+        "place": "Select Size",
+        "group": "ff83dee1decc047d",
+        "order": 8,
+        "width": 3,
+        "height": 1,
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "Small Burger",
+                "value": 60,
+                "type": "num"
+            },
+            {
+                "label": "Large Burger",
+                "value": 120,
+                "type": "num"
+            }
+        ],
+        "payload": "",
+        "topic": "burger_size",
+        "topicType": "str",
+        "className": "",
+        "x": 620,
+        "y": 360,
+        "wires": [
+            [
+                "17412dcfc1d5bd51"
+            ]
+        ]
+    },
+    {
+        "id": "d03fc1b8e28fc361",
+        "type": "ui_button",
+        "z": "b13959b828a031d7",
+        "name": "",
+        "group": "ff83dee1decc047d",
+        "order": 10,
+        "width": 3,
+        "height": 1,
+        "passthru": false,
+        "label": "Drinks",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "btn1",
+        "icon": "",
+        "payload": "drinks",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 950,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ea60e2035786aae7",
+        "type": "function",
+        "z": "b13959b828a031d7",
+        "name": "Set_Drinks_Qty",
+        "func": "if (msg.payload !== undefined) {\n   global.set('drinks', msg.payload);\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 800,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "fd049f1ce4d89799",
+        "type": "ui_numeric",
+        "z": "b13959b828a031d7",
+        "name": "",
+        "label": "Quantity",
+        "tooltip": "",
+        "group": "ff83dee1decc047d",
+        "order": 11,
+        "width": 3,
+        "height": 1,
+        "wrap": false,
+        "passthru": true,
+        "topic": "drinks",
+        "topicType": "str",
+        "format": "{{value}}",
+        "min": 0,
+        "max": 10,
+        "step": 1,
+        "className": "",
+        "x": 620,
+        "y": 280,
+        "wires": [
+            [
+                "ea60e2035786aae7"
+            ]
+        ]
+    },
+    {
+        "id": "573b2267d2be31ba",
+        "type": "ui_dropdown",
+        "z": "b13959b828a031d7",
+        "name": "",
+        "label": "",
+        "tooltip": "",
+        "place": "Select Drink",
+        "group": "ff83dee1decc047d",
+        "order": 12,
+        "width": 3,
+        "height": 1,
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "Coke",
+                "value": 40,
+                "type": "num"
+            },
+            {
+                "label": "Pepsi",
+                "value": 50,
+                "type": "num"
+            },
+            {
+                "label": "Sprite",
+                "value": 80,
+                "type": "num"
+            }
+        ],
+        "payload": "",
+        "topic": "drink_size",
+        "topicType": "str",
+        "className": "",
+        "x": 620,
+        "y": 400,
+        "wires": [
+            [
+                "dbfdcb8eff46251d"
+            ]
+        ]
+    },
+    {
+        "id": "0a9e06b580e3a9d2",
+        "type": "function",
+        "z": "b13959b828a031d7",
+        "name": "Set_pizza_size",
+        "func": "if (msg.payload !== undefined) {\n   global.set('pizza_rate', msg.payload);\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 800,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "17412dcfc1d5bd51",
+        "type": "function",
+        "z": "b13959b828a031d7",
+        "name": "Set_burger_size",
+        "func": "if (msg.payload !== undefined) {\n   global.set('burger_rate', msg.payload);\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 800,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "dbfdcb8eff46251d",
+        "type": "function",
+        "z": "b13959b828a031d7",
+        "name": "Set_drink_size",
+        "func": "if (msg.payload !== undefined) {\n   global.set('drinks_rate', msg.payload);\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 800,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "af3eea3ebb474c88",
+        "type": "mqtt in",
+        "z": "b13959b828a031d7",
+        "name": "",
+        "topic": "excess/order",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "f514de703c1fa312",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 70,
+        "y": 100,
+        "wires": [
+            [
+                "7d02dac0cc319672",
+                "33b3e6606c25d88a"
+            ]
+        ]
+    },
+    {
+        "id": "7d02dac0cc319672",
+        "type": "function",
+        "z": "b13959b828a031d7",
+        "name": "function 1",
+        "func": "if(msg.payload!==undefined){\n     global.set('excess', msg.payload);\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 180,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "33b3e6606c25d88a",
+        "type": "debug",
+        "z": "b13959b828a031d7",
+        "name": "debug 7",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 160,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "8a842a8b80c0885c",
+        "type": "function",
+        "z": "b13959b828a031d7",
+        "name": "Quantity_Restriction",
+        "func": "global.set('available_pizza_small',10);\nglobal.set('available_pizza_large',10);\nglobal.set('available_burger_small',10);\nglobal.set('available_burger_large',10);\nglobal.set('available_coke',12);\nglobal.set('available_pepsi',12);\nglobal.set('available_sprite',12);\nmsg.payload = {\n    available_pizza_large: global.get(\"available_pizza_large\"),\n    available_pizza_small: global.get(\"available_pizza_small\"),\n    available_burger_large: global.get(\"available_burger_large\"),\n    available_burger_small: global.get(\"available_burger_small\"),\n    available_coke: global.get(\"available_coke\"),\n    available_pepsi: global.get(\"available_pepsi\"),\n    available_sprite: global.get(\"available_sprite\")\n};\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 720,
+        "y": 520,
+        "wires": [
+            [
+                "a06679da64c07bd6"
+            ]
+        ]
+    },
+    {
+        "id": "acca11fc3d75b686",
+        "type": "inject",
+        "z": "b13959b828a031d7",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "480",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "payload": "1",
+        "payloadType": "num",
+        "x": 470,
+        "y": 520,
+        "wires": [
+            [
+                "8a842a8b80c0885c"
+            ]
+        ]
+    },
+    {
+        "id": "7f2da05a1c065148",
+        "type": "function",
+        "z": "b13959b828a031d7",
+        "name": "function 2",
+        "func": "if(msg.payload===1){\n;\n}\nelse{\n    return msg;\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 80,
+        "wires": [
+            [
+                "ca1bdc5b626f39f3"
+            ]
+        ]
+    },
+    {
+        "id": "cb2f9ae5b3304d76",
+        "type": "ui_template",
+        "z": "b13959b828a031d7",
+        "group": "58d2e9b9d366d469",
+        "name": "",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "format": "<style>\n \n\n    .food-order-dashboard {\n        display: flex;\n        flex-direction:column;\n        gap: 20px;\n        max-width: 400px;\n        width: 100%;\n        padding:20px;\n        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);\n        background-color: #fff;\n        border-radius: 10px;\n    }\n\n    .group {\n        border: 1px solid #ccc;\n        border-radius: 10px;\n        padding: 15px;\n        background-color: #fff;\n        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);\n        flex: 1;\n        text-align: center;\n    }\n\n    .group h3 {\n        margin-top: 0;\n        color: #333;\n        font-size: 18px;\n    }\n\n    .order-btn {\n        background-color: #28a745;\n        color: white;\n        border: none;\n        padding: 8px;\n        text-align: center;\n        text-decoration: none;\n        display: block;\n        width: 100%;\n        font-size: 14px;\n        margin: 8px 0;\n        transition-duration: 0.4s;\n        cursor: pointer;\n        border-radius: 5px;\n    }\n\n    .order-btn:hover {\n        background-color: white;\n        color: black;\n        border: 2px solid #28a745;\n    }\n\n    .size-label {\n        display: inline-block;\n        background-color: #6c757d;\n        color: white;\n        margin-left: 5px;\n        border-radius: 5px;\n        font-size: 12px;\n    }\n</style>\n\n    <div class=\"food-order-dashboard\">\n        <!-- Pizza group -->\n        <div class=\"group\">\n            <h3>Pizza</h3>\n            <button class=\"order-btn\">Small Pizza <span class=\"size-label\">₹90</span></button>\n            <button class=\"order-btn\">Large Pizza <span class=\"size-label\">₹220</span></button>\n        </div>\n\n        <!-- Burgers group -->\n        <div class=\"group\">\n            <h3>Burgers</h3>\n            <button class=\"order-btn\">Small Burger <span class=\"size-label\">₹60</span></button>\n            <button class=\"order-btn\">Large Burger <span class=\"size-label\">₹120</span></button>\n        </div>\n        <div class=\"group\">\n            <h3>Drinks</h3>\n            <button class=\"order-btn\">Coke<span class=\"size-label\">₹40</span></button>\n            <button class=\"order-btn\">Pepsi<span class=\"size-label\">₹50</span></button>\n            <button class=\"order-btn\">Sprite<span class=\"size-label\">₹80</span></button>\n        </div>\n    </div>\n",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 80,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "241dfdc61c0dd9d4",
+        "type": "function",
+        "z": "b13959b828a031d7",
+        "name": "Database_Storage",
+        "func": "if (msg.payload !== 1) {\n    let employee_id = global.get('employee_id') || \"\";\n    let pizza = global.get('pizza')||0;\n    let burger = global.get('burger')||0;\n    let drinks = global.get('drinks')||0;\n    let drinks_rate = global.get('drinks_rate')||0;\n    let pizza_rate = global.get('pizza_rate')||0;\n    let burger_rate = global.get('burger_rate')||0;\n    msg.topic = `\nINSERT INTO consumption (employee_id, pizza_qty, pizza_price, burger_qty, burger_price, drinks_qty, drinks_price)\nVALUES ('${employee_id}', ${pizza}, ${pizza_rate}, ${burger}, ${burger_rate}, ${drinks}, ${drinks_rate});\n`;// Set payload to empty string to clear text input\n    return msg;\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 240,
+        "wires": [
+            [
+                "e941eb6ee91bca77"
+            ]
+        ]
+    },
+    {
+        "id": "inject-create-table",
+        "type": "inject",
+        "z": "b13959b828a031d7",
+        "name": "Create Table",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 210,
+        "y": 560,
+        "wires": [
+            [
+                "function-create-table"
+            ]
+        ]
+    },
+    {
+        "id": "function-create-table",
+        "type": "function",
+        "z": "b13959b828a031d7",
+        "name": "Create Table",
+        "func": "// Set the SQL query to create the table\nmsg.topic = `\nCREATE TABLE IF NOT EXISTS consumption (\n    id INT AUTO_INCREMENT PRIMARY KEY,\n    employee_id VARCHAR(50),\n    pizza_qty INT DEFAULT 0,\n    pizza_price DECIMAL(10, 2) DEFAULT 0.00,\n    burger_qty INT DEFAULT 0,\n    burger_price DECIMAL(10, 2) DEFAULT 0.00,\n    drinks_qty INT DEFAULT 0,\n    drinks_price DECIMAL(10, 2) DEFAULT 0.00,\n    total_bill DECIMAL(10, 2) AS (\n        (pizza_qty * pizza_price) +\n        (burger_qty * burger_price) +\n        (drinks_qty * drinks_price)\n    ) STORED,\n    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP\n);\n`;\n\n// Return the message object to be sent to the MySQL node\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 560,
+        "wires": [
+            [
+                "mysql-create-table"
+            ]
+        ]
+    },
+    {
+        "id": "mysql-create-table",
+        "type": "mysql",
+        "z": "b13959b828a031d7",
+        "mydb": "74cacae1c7c5b4d8",
+        "name": "",
+        "x": 650,
+        "y": 560,
+        "wires": [
+            [
+                "debug-create-table"
+            ]
+        ]
+    },
+    {
+        "id": "debug-create-table",
+        "type": "debug",
+        "z": "b13959b828a031d7",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "x": 890,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "e941eb6ee91bca77",
+        "type": "mysql",
+        "z": "b13959b828a031d7",
+        "mydb": "74cacae1c7c5b4d8",
+        "name": "",
+        "x": 670,
+        "y": 440,
+        "wires": [
+            [
+                "c6f3c1aaa442e21e"
+            ]
+        ]
+    },
+    {
+        "id": "c6f3c1aaa442e21e",
+        "type": "debug",
+        "z": "b13959b828a031d7",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "x": 910,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "01c1c422fe729544",
+        "type": "function",
+        "z": "b13959b828a031d7",
+        "name": "Cancel_input",
+        "func": "if(msg.payload!==1){\nglobal.set('employee_id',0);\nglobal.set('pizza',0);\nglobal.set('burger',0);\nglobal.set('drinks',0);\nglobal.set('drinks_rate',0);\nglobal.set('pizza_rate',0);\nglobal.set('burger_rate',0);\nlet employee_id = global.get('employee_id');\nlet pizza = global.get('pizza');\nlet burger = global.get('burger');\nlet drinks= global.get('drinks');\nlet drinks_rate = global.get('drinks_rate');\nlet pizza_rate = global.get('pizza_rate');\nlet burger_rate = global.get('burger_rate');\nmsg.payload = {\n   employee_id: employee_id,\n   pizza: pizza,\n   burger:burger,\n   drinks:drinks,\n   pizza_rate:pizza_rate,\n   burger_rate: burger_rate,\n   drinks_rate:drinks_rate\n};\nreturn msg;\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 280,
+        "wires": [
+            [
+                "80ce6bc7c68181ab"
+            ]
+        ]
+    },
+    {
+        "id": "a06679da64c07bd6",
+        "type": "ui_template",
+        "z": "b13959b828a031d7",
+        "group": "cd9ca337b7fed578",
+        "name": "Stocks",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "format": "<!DOCTYPE html>\n<html>\n\n<head>\n    <style>\n        /* Table styling */\n        table {\n            width: 80%;\n            border-collapse: collapse;\n            margin: 20px auto;\n            /* Center the table horizontally */\n        }\n\n        th,\n        td {\n            height: 20px;\n            border: 1px solid #ddd;\n            padding: 10px;\n            text-align: left;\n        }\n\n        th {\n            background-color: #f2f2f2;\n            font-weight: bold;\n        }\n\n        tr:nth-child(even) {\n            background-color: #f9f9f9;\n        }\n\n        .container {\n            width: 90%;\n            margin: 20px auto;\n        }\n\n        /* Optional: Add some spacing for better readability */\n    </style>\n</head>\n\n<body>\n    <div class=\"container\">\n        <h2>Available Stock</h2>\n        <table>\n            <tr>\n                <th>Item</th>\n                <th>Quantity</th>\n            </tr>\n            <tr>\n                <td>Large Pizza</td>\n                <td ng-bind-html=\"msg.payload.available_pizza_large\"></td>\n            </tr>\n            <tr>\n                <td>Small Pizza</td>\n                <td ng-bind-html=\"msg.payload.available_pizza_small\"></td>\n            </tr>\n            <tr>\n                <td>Large Burger</td>\n                <td ng-bind-html=\"msg.payload.available_burger_large\"></td>\n            </tr>\n            <tr>\n                <td>Small Burger</td>\n                <td ng-bind-html=\"msg.payload.available_burger_small\"></td>\n            </tr>\n            <tr>\n                <td>Coke</td>\n                <td ng-bind-html=\"msg.payload.available_coke\"></td>\n            </tr>\n            <tr>\n                <td>Pepsi</td>\n                <td ng-bind-html=\"msg.payload.available_pepsi\"></td>\n            </tr>\n            <tr>\n                <td>Sprite</td>\n                <td ng-bind-html=\"msg.payload.available_sprite\"></td>\n            </tr>\n        </table>\n    </div>\n</body>\n\n</html>\n\n\n",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "widget",
+        "x": 430,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "dc6eca0b57ac9faf",
+        "type": "function",
+        "z": "b13959b828a031d7",
+        "name": "function 3",
+        "func": "if(msg.payload!==1){\n    msg.payload = {\n        available_pizza_large: global.get(\"available_pizza_large\"),\n        available_pizza_small: global.get(\"available_pizza_small\"),\n        available_burger_large: global.get(\"available_burger_large\"),\n        available_burger_small: global.get(\"available_burger_small\"),\n        available_coke: global.get(\"available_coke\"),\n        available_pepsi: global.get(\"available_pepsi\"),\n        available_sprite: global.get(\"available_sprite\")\n    };\n    return msg; // Set payload to empty string to clear text input\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 260,
+        "y": 320,
+        "wires": [
+            [
+                "a06679da64c07bd6"
+            ]
+        ]
+    },
+    {
+        "id": "f514de703c1fa312",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "broker.emqx.io",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "ff83dee1decc047d",
+        "type": "ui_group",
+        "name": "Food Order Dashboard",
+        "tab": "bca17bd9485d51e9",
+        "order": 2,
+        "disp": true,
+        "width": 10,
+        "collapse": true,
+        "className": "dash"
+    },
+    {
+        "id": "6e2b0846a112d29e",
+        "type": "ui_group",
+        "name": "Available Items",
+        "tab": "bca17bd9485d51e9",
+        "order": 1,
+        "disp": true,
+        "width": "5",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "58d2e9b9d366d469",
+        "type": "ui_group",
+        "name": "Available Prices",
+        "tab": "bca17bd9485d51e9",
+        "order": 3,
+        "disp": false,
+        "width": "9",
+        "collapse": false,
+        "className": "available"
+    },
+    {
+        "id": "74cacae1c7c5b4d8",
+        "type": "MySQLdatabase",
+        "name": "",
+        "host": "127.0.0.1",
+        "port": "3306",
+        "db": "employee_consumption",
+        "tz": "",
+        "charset": "UTF8"
+    },
+    {
+        "id": "cd9ca337b7fed578",
+        "type": "ui_group",
+        "name": "Available Stocks",
+        "tab": "bca17bd9485d51e9",
+        "order": 4,
+        "disp": false,
+        "width": "6",
+        "collapse": false,
+        "className": "widget"
+    },
+    {
+        "id": "bca17bd9485d51e9",
+        "type": "ui_tab",
+        "name": "Template",
+        "icon": "dashboard",
+        "order": 2,
+        "disabled": false,
+        "hidden": false
+    }
+]

@@ -1,0 +1,351 @@
+[
+    {
+        "id": "7c2174f150e75b94",
+        "type": "tab",
+        "label": "Flow 3",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "79b5c0bba68263f3",
+        "type": "inject",
+        "z": "7c2174f150e75b94",
+        "name": "Retrieve Daily Totals",
+        "props": [],
+        "repeat": "480",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 140,
+        "y": 40,
+        "wires": [
+            [
+                "72376c7cbaaecf67",
+                "90bbb6e70a0982af"
+            ]
+        ]
+    },
+    {
+        "id": "72376c7cbaaecf67",
+        "type": "function",
+        "z": "7c2174f150e75b94",
+        "name": "Format Query",
+        "func": "msg.topic = \"SELECT employee_id, SUM(pizza_qty) AS total_pizza_qty, SUM(pizza_qty * pizza_price) AS total_pizza_price, SUM(burger_qty) AS total_burger_qty, SUM(burger_qty * burger_price) AS total_burger_price, SUM(drinks_qty) AS total_drinks_qty, SUM(drinks_qty * drinks_price) AS total_drinks_price, SUM(total_bill) AS total_bill FROM consumption WHERE DATE(timestamp) = CURDATE() GROUP BY employee_id;\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 260,
+        "y": 100,
+        "wires": [
+            [
+                "bd2521c3b092a229"
+            ]
+        ]
+    },
+    {
+        "id": "bd2521c3b092a229",
+        "type": "mysql",
+        "z": "7c2174f150e75b94",
+        "mydb": "74cacae1c7c5b4d8",
+        "name": "",
+        "x": 530,
+        "y": 100,
+        "wires": [
+            [
+                "9c9626553de6ce3c"
+            ]
+        ]
+    },
+    {
+        "id": "9c9626553de6ce3c",
+        "type": "function",
+        "z": "7c2174f150e75b94",
+        "name": "Format Summary Message",
+        "func": "var results = msg.payload;\n\nvar message = \"Day-End Summary:\\n\\n\";\n\nresults.forEach(function(row) {\n    message += `Employee ID: ${row.employee_id}\\n`;\n    message += `- Total Pizza: ${row.total_pizza_qty} x ${row.total_pizza_price}\\n`;\n    message += `- Total Burger: ${row.total_burger_qty} x ${row.total_burger_price}\\n`;\n    message += `- Total Drinks: ${row.total_drinks_qty} x ${row.total_drinks_price}\\n`;\n    message += `- Total Bill: ${row.total_bill}\\n\\n`;\n});\nmsg.headers = {\n    'x-rapidapi-key': '608797ae8emsh9da5e5266c72295p100078jsn2c244907c615',\n    'x-rapidapi-host': 'whin2.p.rapidapi.com',\n    'Content-Type': 'application/json'\n};\nmsg.payload = JSON.stringify({\n    text: message\n});\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 180,
+        "wires": [
+            [
+                "f2e48549ccc6ee90"
+            ]
+        ]
+    },
+    {
+        "id": "f2e48549ccc6ee90",
+        "type": "http request",
+        "z": "7c2174f150e75b94",
+        "name": "Send Summary via Whin API",
+        "method": "POST",
+        "ret": "txt",
+        "url": "https://whin2.p.rapidapi.com/send",
+        "tls": "",
+        "headers": [
+            {
+                "key": "x-rapidapi-key",
+                "value": "YOUR_API_KEY"
+            },
+            {
+                "key": "x-rapidapi-host",
+                "value": "whin2.p.rapidapi.com"
+            },
+            {
+                "key": "Content-Type",
+                "value": "application/json"
+            }
+        ],
+        "x": 520,
+        "y": 260,
+        "wires": [
+            [
+                "4c3544b12b5bd29b"
+            ]
+        ]
+    },
+    {
+        "id": "4c3544b12b5bd29b",
+        "type": "debug",
+        "z": "7c2174f150e75b94",
+        "name": "Summary Response",
+        "active": true,
+        "tosidebar": true,
+        "x": 780,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "90bbb6e70a0982af",
+        "type": "function",
+        "z": "7c2174f150e75b94",
+        "name": "Delete Storage",
+        "func": "msg.topic = \"DELETE FROM consumption;\";\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 40,
+        "wires": [
+            [
+                "a1b56eb7fc02eb2d"
+            ]
+        ]
+    },
+    {
+        "id": "a1b56eb7fc02eb2d",
+        "type": "mysql",
+        "z": "7c2174f150e75b94",
+        "mydb": "74cacae1c7c5b4d8",
+        "name": "",
+        "x": 750,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8c964c14a868184b",
+        "type": "ui_template",
+        "z": "7c2174f150e75b94",
+        "group": "58d2e9b9d366d469",
+        "name": "",
+        "order": 7,
+        "width": "3",
+        "height": "1",
+        "format": "<style>\n    .widget{\n        height:440px;\n        margin-left:0px;\n        margin-right:200px;\n        width:50px;\n    }\n    #Template_Available_Stocks{\n        margin-left:-58px;\n    }\n    </style>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 480,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "194305f9eb138ce6",
+        "type": "ui_spacer",
+        "z": "7c2174f150e75b94",
+        "name": "spacer",
+        "group": "ff83dee1decc047d",
+        "order": 5,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "ec38a0c2f2e5150d",
+        "type": "ui_spacer",
+        "z": "7c2174f150e75b94",
+        "name": "spacer",
+        "group": "ff83dee1decc047d",
+        "order": 9,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "cb34802499da443f",
+        "type": "ui_spacer",
+        "z": "7c2174f150e75b94",
+        "name": "spacer",
+        "group": "ff83dee1decc047d",
+        "order": 13,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "439ae5d7418993ee",
+        "type": "ui_spacer",
+        "z": "7c2174f150e75b94",
+        "name": "spacer",
+        "group": "ff83dee1decc047d",
+        "order": 14,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "c8e48c332184731d",
+        "type": "ui_spacer",
+        "z": "7c2174f150e75b94",
+        "name": "spacer",
+        "group": "ff83dee1decc047d",
+        "order": 17,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "613f67a45f85c552",
+        "type": "ui_spacer",
+        "z": "7c2174f150e75b94",
+        "name": "spacer",
+        "group": "cd9ca337b7fed578",
+        "order": 4,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "b6201ee637e142a7",
+        "type": "ui_spacer",
+        "z": "7c2174f150e75b94",
+        "name": "spacer",
+        "group": "cd9ca337b7fed578",
+        "order": 4,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "b0a37269282dd1be",
+        "type": "ui_spacer",
+        "z": "7c2174f150e75b94",
+        "name": "spacer",
+        "group": "cd9ca337b7fed578",
+        "order": 4,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "805d950ca4e7b312",
+        "type": "ui_spacer",
+        "z": "7c2174f150e75b94",
+        "name": "spacer",
+        "group": "cd9ca337b7fed578",
+        "order": 4,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "7dc68b62d671cd65",
+        "type": "ui_spacer",
+        "z": "7c2174f150e75b94",
+        "name": "spacer",
+        "group": "cd9ca337b7fed578",
+        "order": 4,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "b9c87f064f152d2e",
+        "type": "ui_spacer",
+        "z": "7c2174f150e75b94",
+        "name": "spacer",
+        "group": "cd9ca337b7fed578",
+        "order": 4,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "1ee7b6fce90493a2",
+        "type": "ui_spacer",
+        "z": "7c2174f150e75b94",
+        "name": "spacer",
+        "group": "58d2e9b9d366d469",
+        "order": 3,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "74cacae1c7c5b4d8",
+        "type": "MySQLdatabase",
+        "name": "",
+        "host": "127.0.0.1",
+        "port": "3306",
+        "db": "employee_consumption",
+        "tz": "",
+        "charset": "UTF8"
+    },
+    {
+        "id": "58d2e9b9d366d469",
+        "type": "ui_group",
+        "name": "Available Prices",
+        "tab": "bca17bd9485d51e9",
+        "order": 3,
+        "disp": false,
+        "width": "9",
+        "collapse": false,
+        "className": "available"
+    },
+    {
+        "id": "ff83dee1decc047d",
+        "type": "ui_group",
+        "name": "Food Order Dashboard",
+        "tab": "bca17bd9485d51e9",
+        "order": 2,
+        "disp": true,
+        "width": 10,
+        "collapse": true,
+        "className": "dash"
+    },
+    {
+        "id": "cd9ca337b7fed578",
+        "type": "ui_group",
+        "name": "Available Stocks",
+        "tab": "bca17bd9485d51e9",
+        "order": 4,
+        "disp": false,
+        "width": "6",
+        "collapse": false,
+        "className": "widget"
+    },
+    {
+        "id": "bca17bd9485d51e9",
+        "type": "ui_tab",
+        "name": "Template",
+        "icon": "dashboard",
+        "order": 2,
+        "disabled": false,
+        "hidden": false
+    }
+]
